@@ -1,0 +1,12 @@
+% Extract HOG from images
+for i = 1:8,
+    I = im2double(imread(['../data_small/0' num2str(i) '.jpg']));
+    [HoG, vis] = extractHOGFeatures(I,'CellSize',[floor(size(I,1)/16), ...
+floor(size(I,2)/16)]);
+
+%     figure()
+%     imshow(d,'InitialMagnification',500);
+%     title(num2str(i));
+%     colormap('jet')
+%     colorbar
+end
