@@ -1,3 +1,5 @@
+run('/Users/hawaiii/Developer/vlfeat-0.9.20/toolbox/vl_setup');
+
 % load HOGs
 load('VLHOGWatch.mat');
 load('VLHOGnonWatch.mat');
@@ -43,7 +45,7 @@ trueneg = 0;
 falsepos = 0;
 falseneg = 0;
 for i = 1:size(test_data,1)
-    confidence = HOGContainsWatch(test_data(i,:), svm);
+    confidence = HOGContainsWatchWB(test_data(i,:), svm.Beta, svm.Bias);
     if test_label(i) == 1 
         if confidence ~= -1
             truepos = truepos + 1;

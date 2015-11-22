@@ -6,12 +6,8 @@ allwhite = zeros(128,128);
 for ii=1:nfiles
     currentfilename = imagefiles(ii).name;
     im = im2bw(imread([filedir currentfilename]),0.99);
-    allwhite = allwhite|im;
-    figure(1)
-    imshow(imread([filedir currentfilename]));
-    impixelinfo
-    figure(2)
-    imshow(allwhite);
-    
+    allwhite = allwhite+(~im);
 end
 
+allwhite = allwhite>0.1*nfiles;
+imshow(allwhite);
