@@ -9,12 +9,6 @@ function H = computeH(eparams, circleCenter, circleRadius)
 %  H: 3x3 homography matrix
 
 % Convert eparams to 3x3 matrix E
-% A = eparams(1)^2*(sin(eparams(5))^2) + eparams(2)^2*(cos(eparams(5))^2);
-% B2 = (eparams(2)^2-eparams(1)^2)*sin(eparams(5))*cos(eparams(5));
-% C = eparams(1)^2*(cos(eparams(5))^2) + eparams(2)^2*(sin(eparams(5))^2);
-% D2 = - A*eparams(3)-B2*eparams(4);
-% E2 = -B2*eparams(3) - C*eparams(4);
-% F = A*eparams(3)^2+2*B2*eparams(3)*eparams(4)+C*eparams(4)^2-eparams(1)^2*eparams(2)^2;
 a = eparams(3);
 b = eparams(4);
 cx = eparams(1);
@@ -36,11 +30,14 @@ V = V_; V(:,1) = V_(:,3); V(:,3) = V_(:,1);
 H = V*[1/sqrt(U(3,3)) 0 0; 0 1/sqrt(U(2,2)) 0; 0 0 1/sqrt(-U(1,1))];
 
 % scale H from unit circle to circle=(circleCenter, circleRadius)
+% R = circleRadius*[1 0 circleCenter(1);...
+%     0 1 circleCenter(2);...
+%     0 0 1];
 R = [1/circleRadius 0 -circleCenter(1)/circleRadius;...
     0 1/circleRadius -circleCenter(2)/circleRadius;...
     0 0 1];
 H = H*R;
 
 % scale H for numerical stability
-H = H/H(3,3);
+% H = H/H(3,3);
 end
