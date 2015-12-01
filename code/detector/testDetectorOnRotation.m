@@ -1,4 +1,4 @@
-% run('/Users/hawaiii/Developer/vlfeat-0.9.20/toolbox/vl_setup');
+run('/Users/hawaiii/Developer/vlfeat-0.9.20/toolbox/vl_setup');
 
 % Testing detector on rotated images
 load('watchSVM.mat');
@@ -7,13 +7,13 @@ trueneg = 0;
 falsepos = 0;
 falseneg = 0;
 
-% filedir = '../../data/AmazonWatchSquareRotated/';
-filedir = '../../data/google_watches/';
+filedir = '../../data/AmazonWatchSquareRotated/';
+% filedir = '../../data/google_watches/';
 imagefiles = dir([filedir '*.jpg']);
 nfiles = length(imagefiles);    % Number of files found
 
 for ii = 1:nfiles
-    currentfilename = imagefiles(ii).name
+    currentfilename = imagefiles(ii).name;
     % Extract HOG
     im = im2single(imread([filedir currentfilename]));
     hog = reshape(vl_hog(im,8),1,[]);

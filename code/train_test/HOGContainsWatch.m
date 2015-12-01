@@ -9,7 +9,7 @@ function [confidence] = HOGContainsWatch(hog, classifier)
 %              from the hog to the svm margin otherwise
 confidence = predict(classifier, hog);
 if confidence == 1
-   confidence = hog*classifier.Beta/(classifier.Beta'*classifier.Beta);
+   confidence = hog*classifier.Beta+classifier.Bias;
 end    
 
 end

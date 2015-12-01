@@ -1,8 +1,8 @@
 run('/Users/hawaiii/Developer/vlfeat-0.9.20/toolbox/vl_setup');
 
 % load HOGs
-load('VLHOGWatch.mat');
-load('VLHOGnonWatch.mat');
+load('VLHOGWatchCrop.mat');
+load('VLHOGnonWatchCrop.mat');
 
 % Small experiment
 % train_data_small = vertcat(VLHOGnonWatch(randperm(size(VLHOGnonWatch,1),50),:),...
@@ -45,7 +45,7 @@ trueneg = 0;
 falsepos = 0;
 falseneg = 0;
 for i = 1:size(test_data,1)
-    confidence = HOGContainsWatchWB(test_data(i,:), svm.Beta, svm.Bias);
+    confidence = HOGContainsWatch(test_data(i,:), svm);
     if test_label(i) == 1 
         if confidence ~= -1
             truepos = truepos + 1;
