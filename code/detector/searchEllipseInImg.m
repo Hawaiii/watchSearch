@@ -1,11 +1,12 @@
-function [ellipses] = searchEllipseInImg(img, minMajor, ...
+function [bestEllipse] = searchEllipseInImg(img, minMajor, ...
     minMinor, maxMinor, minThresh)
 % Input:
 %  img: color or grayscale image
 %  minMajor: minimum allowed major axis
 %  minMinor: minimum allowed minor axis
 % Output:
-%  ellipses: 5xK matrix, each column is [x0 y0 majorAx minorAx theta]
+%  bestEllipse: 5x1 matrix
+%  (before)ellipses: 5xK matrix, each column is [x0 y0 majorAx minorAx theta]
 
 if nargin < 2
     minMajor = 100;
@@ -17,9 +18,13 @@ if nargin < 4
     maxMinor = 350;
 end
 if nargin < 5
-    minThresh = 10; % TODO: adjust this 
+    minThresh = 2000; % TODO: adjust this 
 end
 ellipseFitThresh = 0.7;
+
+ellipses = [];
+bestEllipse = [];
+bestVal = 0;
 
 % get edge
 bw = edge(img, 'canny');
@@ -62,14 +67,19 @@ for i = 1:N
             end
             [maxval, maxid] = max(accum);
             if maxval > minThresh % Ellipse is detected
+                if maxval > bestVal
+                    maxval
+                    bestEllipse = [x0; y0; a; maxid+minMinor-1; theta];
+                    bestVal = maxval;
+                end
                 % Record ellipse
                 ellipses = [ellipses [x0; y0; a; maxid+minMinor-1; theta]];
                 % Find all points on this ellipse
                 valid = (edgex > 0 & edgey > 0);
-                distToE = ((cos(theta)*(edgex-x0)+sin(theta)*(edgey-y0))/a)^2...
-                +((sin(theta)*(edgex-x0)-cos(theta)*(edgey-y0))/b)^2;
+                distToE = ( (cos(theta)*(edgex-x0)+sin(theta)*(edgey-y0)) /a).^2 ...
+                +( (sin(theta)*(edgex-x0)-cos(theta)*(edgey-y0)) /b).^2;
                 % Remove all points on this ellipse
-                ptsOnE = distToE(valid & destToE < ellipseFitThresh);
+                ptsOnE = (valid & distToE < ellipseFitThresh);
                 edgex(ptsOnE) = -1;
                 edgey(ptsOnE) = -1;
                 % Clear accumulator
