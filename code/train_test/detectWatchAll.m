@@ -2,7 +2,8 @@ run('/Users/hawaiii/Developer/vlfeat-0.9.20/toolbox/vl_setup');
 addpath('../detector/')
 
 % Load data from the small dataset
-filedir = '../../data/data_small/';
+% filedir = '../../data/data_small/';
+filedir = '../../data/nonwatch/';
 % filedir = '../../data/google_watches/';
 imagefiles = dir([filedir '*.jpg']);
 nfiles = length(imagefiles);    % Number of files found
