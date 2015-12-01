@@ -1,5 +1,8 @@
 % Start camera
 
+% Load trained svm
+load('watchSVM.mat');
+
 % For each frame 
 
 % detect watch
