@@ -1,4 +1,4 @@
-function [x0, y0, width, height] = detectWatch(im, classifier)
+function [x0, y0, width, height] = detectWatchSlidingWindow(im, classifier)
 % Use trained classifier to detect watches in images
 % Return position of watch in image (in the box y0:y0+height, x0:x0+width),
 % or [-1 -1 -1 -1] if not found.

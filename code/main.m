@@ -8,7 +8,7 @@ load('watchSVM.mat');
 % detect watch
 % frame: h x w x 3 image 
 % watchSeg: 128x128x3 matrix, image segment containing a watch
-watchSeg = detectWatchOnFame(frame);
+watchSeg = detectWatchOnFame(frame, svm);
 
 % match watch
 
