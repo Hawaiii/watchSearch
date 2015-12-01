@@ -1,4 +1,4 @@
-function [bestEllipse] = searchEllipseInImg(img, minMajor, ...
+function [bestEllipse, ellipses] = searchEllipseInImg(img, minMajor, ...
     minMinor, maxMinor, minThresh)
 % Input:
 %  img: color or grayscale image
@@ -12,7 +12,7 @@ if nargin < 2
     minMajor = 100;
 end
 if nargin < 3
-    minMinor = 50;
+    minMinor = 40;
 end
 if nargin < 4
     maxMinor = 350;
@@ -68,7 +68,7 @@ for i = 1:N
             [maxval, maxid] = max(accum);
             if maxval > minThresh % Ellipse is detected
                 if maxval > bestVal
-                    maxval
+                    maxval,i,j,k
                     bestEllipse = [x0; y0; a; maxid+minMinor-1; theta];
                     bestVal = maxval;
                 end
