@@ -22,7 +22,7 @@ while imdim >= patchSize
         hog = reshape(vl_hog(im(y:y+patchSize, x:x+patchSize,:),8),1,[]);
         label = predict(classifier, hog);
         if label == 1
-            dist = hog*classifier.Beta/(classifier.Beta'*classifier.Beta);
+            dist = hog*classifier.Beta+classifier.Bias;
             if dist > bestdist
                 x0 = x;
                 y0 = y;
