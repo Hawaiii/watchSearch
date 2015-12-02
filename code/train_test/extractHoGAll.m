@@ -2,7 +2,7 @@ run('/Users/hawaiii/Developer/vlfeat-0.9.20/toolbox/vl_setup');
 
 % Extract HOG from images and save it to HOGWatch.mat and HOGnonWatch.mat
 
-rotatedir = '../../data/AmazonWatchSquare/';
+rotatedir = '../../data/AmazonWatchCropped/';
 % rotatedir = '../../data/AmazonWatchSquareRotated/';
 imagefiles = dir([rotatedir '*.jpg']);
 nfiles = length(imagefiles);    % Number of files found
@@ -13,6 +13,10 @@ for ii=1:nfiles
 %     im = im2double(imread([rotatedir currentfilename]));
 %     HoG = extractHOGFeatures(im);
     im = im2single(imread([rotatedir currentfilename]));
+    if size(im,1) ~= 128 || size(im,2) ~= 128
+        currentfilename
+        continue;
+    end
     HoG = vl_hog(im,8);
     VLHOGWatch(ii,:) = HoG(:);
     if mod(ii, 1000) == 0

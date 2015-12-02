@@ -3,8 +3,8 @@ readdir = '../../data/AmazonWatchClean/';
 founddir = '../../data/AmazonWatchCropped/';
 notfounddir = '../../data/AmazonWatchNonProcess/';
 
-im = rgb2gray(imread([readdir imname]));
-bw = im < 254;
+im = imread([readdir imname]);
+bw = rgb2gray(im) < 254;
 % imshow(bw);
 
 s = regionprops(bw, 'centroid');
@@ -26,7 +26,7 @@ if ymin < 1 || ymax > size(im,1)
     imwrite(im, [notfounddir imname]);
     return;
 end
-imseg = im(ymin:ymax,xmin:xmax);
+imseg = im(ymin:ymax,xmin:xmax,:);
 imseg = imresize(imseg, [128 128]);
 imwrite(imseg, [founddir imname]);
 % end

@@ -3,8 +3,8 @@ function [x0, y0, width, height] = detectWatchSlidingWindow(im, classifier)
 % Return position of watch in image (in the box y0:y0+height, x0:x0+width),
 % or [-1 -1 -1 -1] if not found.
 
-xstep = 64;
-ystep = 64;
+xstep = 16;
+ystep = 16;
 patchSize = 128;
 resizeScale = 0.8;
 
@@ -24,8 +24,8 @@ while imdim >= patchSize
         if label == 1
             dist = hog*classifier.Beta+classifier.Bias;
             if dist > bestdist
-                x0 = x;
-                y0 = y;
+                x0 = x*downsize;
+                y0 = y*downsize;
                 width = patchSize*downsize;
                 height = patchSize*downsize;
                 bestdist = dist;
@@ -38,5 +38,5 @@ while imdim >= patchSize
     downsize = downsize/resizeScale;
     imdim = min(size(im,2), size(im,1));
 end
-
+bestdist
 end
