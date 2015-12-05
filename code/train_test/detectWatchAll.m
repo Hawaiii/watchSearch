@@ -3,8 +3,8 @@ addpath('../detector/')
 
 % Load data from the small dataset
 % filedir = '../../data/nonwatch/';
-filedir = '../../data/camera_image/';
-% filedir = '../../data/google/';
+% filedir = '../../data/camera_image/';
+filedir = '../../data/google/';
 imagefiles = dir([filedir '*.jpg']);
 nfiles = length(imagefiles);    % Number of files found
 
