@@ -18,7 +18,7 @@ edgeim = edge(grayim);
 
 x0 =-1; y0 =-1; width=-1; height=-1;
 
-bestdist = 0;
+bestdist = 0.33;
 
 imdim = min(size(im,2), size(im,1));
 downsize = 1;
