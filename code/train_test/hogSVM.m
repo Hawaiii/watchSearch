@@ -3,7 +3,7 @@ run('/Users/hawaiii/Developer/vlfeat-0.9.20/toolbox/vl_setup');
 % load HOGs
 load('VLHOGWatch.mat');
 load('VLHOGnonWatch.mat');
-VLHOGnonWatch = VLHOGnonWatch(1:17166,:);
+% VLHOGnonWatch = VLHOGnonWatch(1:17166,:);
 
 
 % Small experiment

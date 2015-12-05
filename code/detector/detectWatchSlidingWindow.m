@@ -35,17 +35,20 @@ while imdim >= patchSize
             continue;
         end
         % Extract HOG feature of the image
-        hog = reshape(vl_hog(im(y:y+patchSize, x:x+patchSize,:),8),1,[]);
-        label = predict(classifier, hog);
-        if label == 1
-            dist = hog*classifier.Beta+classifier.Bias;
-            if dist > bestdist
+        tosave = im(y:min(y+patchSize-1, size(im,1)), x:min(x+patchSize-1, size(im,2)),:);
+        if size(tosave, 1) == 128 && size(tosave,2) == 128
+            hog = reshape(vl_hog(tosave,8),1,[]);
+            label = predict(classifier, hog);
+            if label == 1
+                dist = hog*classifier.Beta+classifier.Bias;
+                if dist > bestdist
 %                 imshow(im(y:min(y+patchSize, size(im,1)), x:min(x+patchSize, size(im,2)),:));
-                x0 = x0_;
-                y0 = y0_;
-                width = width_;
-                height = height_;
-                bestdist = dist;
+                    x0 = x0_;
+                    y0 = y0_;
+                    width = width_;
+                    height = height_;
+                    bestdist = dist;
+                end
             end
         end
        end
