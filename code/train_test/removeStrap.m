@@ -2,6 +2,7 @@ function removeStrap(imname)
 readdir = '../../data/AmazonWatchClean/';
 founddir = '../../data/AmazonWatchCropped/';
 notfounddir = '../../data/AmazonWatchNonProcess/';
+IMSIZE = 160;
 
 im = imread([readdir imname]);
 bw = rgb2gray(im) < 254;
@@ -27,7 +28,7 @@ if ymin < 1 || ymax > size(im,1)
     return;
 end
 imseg = im(ymin:ymax,xmin:xmax,:);
-imseg = imresize(imseg, [128 128]);
+imseg = imresize(imseg, [IMSIZE IMSIZE]);
 imwrite(imseg, [founddir imname]);
 % end
 
